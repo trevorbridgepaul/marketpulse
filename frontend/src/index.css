@@ -1,0 +1,23 @@
+:root {
+  --color-bg: #0a0f1e;
+  --color-bg-elevated: #10182c;
+  --color-border: #1f2b45;
+  --color-text: #f5f7fa;
+  --color-text-muted: #9aa5b8;
+  --color-accent: #2dd4bf;
+
+  color-scheme: dark;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
