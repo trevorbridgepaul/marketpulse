@@ -4,6 +4,9 @@ CLAUDE.md
 CLAUDE.local.md
 .claude/
 
+# Personal learning tracker - local only, not part of the repo
+LEARNING_LOG.md
+
 # Python
 __pycache__/
 *.pyc
