@@ -1,0 +1,30 @@
+
+# Claude Code - local development only
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Node.js / React
+node_modules/
+dist/
+coverage/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Editor and operating system
+.DS_Store
+.idea/
+.vscode/
+
+# Logs and temporary files
+*.log
