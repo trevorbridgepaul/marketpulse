@@ -52,6 +52,8 @@ jobs:
           PGPASSWORD="$POSTGRES_PASSWORD"
           psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DB"
           -c "CREATE DATABASE ${POSTGRES_DB}_test"
+      - name: Apply migrations to test database
+        run: alembic -x target=test upgrade head
       - name: Run pytest
         run: pytest
 
