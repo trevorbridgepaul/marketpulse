@@ -16,6 +16,26 @@ jobs:
     defaults:
       run:
         working-directory: backend
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ci_test_user
+          POSTGRES_PASSWORD: ci_test_password
+          POSTGRES_DB: marketpulse_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ci_test_user -d marketpulse_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      POSTGRES_USER: ci_test_user
+      POSTGRES_PASSWORD: ci_test_password
+      POSTGRES_DB: marketpulse_ci
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -27,6 +47,13 @@ jobs:
         run: pip install -e ".[dev]"
       - name: Run Ruff
         run: ruff check .
+      - name: Create dedicated test database
+        run: >-
+          PGPASSWORD="$POSTGRES_PASSWORD"
+          psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+          -c "CREATE DATABASE ${POSTGRES_DB}_test"
+      - name: Apply migrations to test database
+        run: alembic -x target=test upgrade head
       - name: Run pytest
         run: pytest
 
